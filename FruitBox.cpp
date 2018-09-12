@@ -49,6 +49,9 @@ public:
 Fruit::Fruit():weight(0),lose(0) {
 }
 
+void Fruit::loseWeight() {
+}
+
 Fruit* Fruit::GetClassType(void) {
     return this;
 }
@@ -88,11 +91,14 @@ Orange* Orange::GetClassType(void) {
 }
 
 Box::Box():order(0){
+    for (int i = 0; i < 8; i++) {
+        box[i] = NULL;
+    }
 }
 
 void Box::passOneDay(){
     int i = 0;
-    while (box[i] != NULL) {
+    while (box[i] != NULL && i < 8) {
         box[i]->loseWeight();
         i++;
     }
@@ -111,7 +117,7 @@ bool Box::putFruit(Fruit* fruit){
 int Box::showApple(){
     int i = 0;
     int count = 0;
-    while (box[i] != NULL) {
+    while (box[i] != NULL && i < 8) {
         if (typeid(*(box[i]->GetClassType()))== typeid(Apple)) {
             count++;
         }
@@ -123,7 +129,7 @@ int Box::showApple(){
 int Box::showOrange(){
     int i = 0;
     int count = 0;
-    while (box[i] != NULL) {
+    while (box[i] != NULL && i < 8) {
         if (typeid(*(box[i]->GetClassType()))== typeid(Orange)) {
             count++;
         }
@@ -135,7 +141,7 @@ int Box::showOrange(){
 int Box::showReducing(){
     int i = 0;
     int count = 0;
-    while (box[i] != NULL) {
+    while (box[i] != NULL && i < 8) {
         count += box[i]->lose;
         i++;
     }
@@ -145,7 +151,7 @@ int Box::showReducing(){
 int Box::showSum(){
     int i = 0;
     int count = 0;
-    while (box[i] != NULL) {
+    while (box[i] != NULL && i < 8) {
         count += box[i]->weight;
         i++;
     }
@@ -154,7 +160,7 @@ int Box::showSum(){
 
 
 int main(int argc, const char * argv[]) {
-    Box* testbox;
+    Box* testbox = new Box();
     for (int i = 0; i < 4; i++) {
         testbox->putFruit(new Apple());
         testbox->putFruit(new Orange());
@@ -166,3 +172,4 @@ int main(int argc, const char * argv[]) {
     }
     return 0;
 }
+

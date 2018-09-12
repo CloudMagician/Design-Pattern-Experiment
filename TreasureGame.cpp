@@ -11,7 +11,7 @@ public:
     Box();
     ~Box();
     Box(int money);
-    void showMoney(Role* role);
+    virtual void showMoney(Role* role);
 };
 
 //PoisonBox
@@ -67,7 +67,7 @@ PoisonBox::PoisonBox(int money):Box(money){
 void PoisonBox::showMoney(Role* role){
     role->moneyChange(int(money*role->luck));
     money = 0;
-    role->bloodChange(int(role->blood*role->resistance)-1);
+    role->bloodChange(int(role->blood*role->resistance)-100);
 }
 
 Role::Role():blood(100),money(0),resistance(1),luck(1) {
@@ -91,8 +91,8 @@ Mage::Mage() {
 }
 
 Solider::Solider() {
-    resistance = 0.7;
-    luck = 1.4;
+    resistance = 0.9;
+    luck = 1.2;
 }
 
 
